@@ -4,6 +4,20 @@
 <br />
 <br />
 
+<div class="container-fluid text-center">
+	<div class="row w-50">
+		@foreach (var city in cities)
+		{
+			<div class="col">
+				<button type="button" class="btn btn-primary">@city</button>
+			</div>
+		}
+	</div>
+</div>
+
+<br />
+<br />
+
 <ul>
 	@foreach(var server in servers)
 	{
@@ -12,6 +26,7 @@
 </ul>
 
 @code {
+	private IEnumerable<string> cities = CitiesRepository.GetCities();
 	private IEnumerable<Server> servers = ServersRepository.GetServers();
 
 }
