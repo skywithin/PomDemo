@@ -1,5 +1,7 @@
 ﻿@page "/servers/edit/{id:int}"
 
+@inject NavigationManager NavigationManager
+
 <h3>Edit Server</h3>
 <br />
 <br />
@@ -73,11 +75,13 @@ else
 	// 	return base.OnAfterRenderAsync(firstRender);
 	// }
 
-	private void Submit()
+	private async Task Submit()
 	{
 		if (server != null)
 		{
 			ServersRepository.UpdateServer(server.Id, server);
 		}
+
+		NavigationManager.NavigateTo("/servers");
 	}
 }
