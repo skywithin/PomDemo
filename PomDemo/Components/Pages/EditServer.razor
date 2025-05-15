@@ -3,8 +3,38 @@
 <h3>Edit Server</h3>
 <br />
 <br />
-@Id
+
+@if (server == null)
+{
+	<p>Not found</p>
+}
+else
+{
+	<div class="card">
+		<div class="card-body">
+			<h5 class="card-title">@server.Name</h5>
+			<p class="card-text">@server.City</p>
+			<p class="card-text">@(server.IsOnline ? "Online" : "Offline")</p>
+		</div>
+	</div>
+}
+
+<br />
+
+<a href="/servers" class="btn btn-primary">Back</a>
 
 @code {
 	[Parameter] public int Id { get; set; }
+
+	private Server? server;
+
+	protected override void OnParametersSet()
+	{
+		server = ServersRepository.GetServerById(this.Id);
+	}
+
+	// protected override Task OnAfterRenderAsync(bool firstRender)
+	// {
+	// 	return base.OnAfterRenderAsync(firstRender);
+	// }
 }
