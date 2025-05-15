@@ -1,5 +1,7 @@
 ﻿@page "/servers"
 
+@rendermode InteractiveServer
+
 <h3>Servers</h3>
 <br />
 <br />
@@ -12,7 +14,7 @@
 				<div class="card">
 					<img class="card-img-top" src="@($"/images/{city}.png")" alt="@city">
 					<div class="card-body">
-						<button type="button" class="btn btn-primary">@city</button>
+						<button type="button" class="btn btn-primary" @onclick="@(() => { SelectCity(city); })">@city</button>
 					</div>
 				</div>
 			</div>
@@ -20,7 +22,6 @@
 	</div>
 </div>
 
-<br />
 <br />
 
 <ServerComponent @rendermode="InteractiveServer"></ServerComponent>
@@ -52,9 +53,16 @@
 @code {
 	private IEnumerable<string> cities = CitiesRepository.GetCities();
 	private IEnumerable<Server> servers = ServersRepository.GetServers();
+	private string selectedCity = string.Empty;
 
 	private void DeleteServer(int serverId)
 	{
 		ServersRepository.DeleteServer(serverId);
+	}
+
+	private void SelectCity(string cityName)
+	{
+		this.selectedCity = cityName;
+		this.servers = ServersRepository.GetServersByCity(this.selectedCity);
 	}
 }
