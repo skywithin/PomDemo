@@ -1,4 +1,6 @@
-﻿<div data-name="@server.Name">
+﻿<div data-name="@server.Name"
+	 data-status="@(server.IsOnline ? "online" : "offline")"
+	 style='@($"color:{(server.IsOnline ? "green" : "red")}")'>
 	@server.Name (@server.City) is @(server.IsOnline ? "online" : "offline") at @DateTime.Now
 </div>
 
