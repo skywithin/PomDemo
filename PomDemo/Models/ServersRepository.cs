@@ -27,9 +27,9 @@ public static class ServersRepository
         servers.Add(server);
     }
 
-    public static IEnumerable<Server> GetServers() => servers;
+    public static List<Server> GetServers() => servers;
 
-    public static IEnumerable<Server> GetServersByCity(string cityName)
+    public static List<Server> GetServersByCity(string cityName)
     {
         return servers
                 .Where(s => s.City.Equals(cityName, StringComparison.OrdinalIgnoreCase))
@@ -78,7 +78,7 @@ public static class ServersRepository
         }
     }
 
-    public static IEnumerable<Server> SearchServers(string serverFilter)
+    public static List<Server> SearchServers(string serverFilter)
     {
         return servers
                 .Where(s => s.Name.Contains(serverFilter, StringComparison.OrdinalIgnoreCase))

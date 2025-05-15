@@ -32,22 +32,19 @@
 <br />
 
 <ul>
-	@foreach(var server in servers)
-	{
+	<Virtualize Items="servers" Context="server">
 		<li @key="server.Id">
 			@($"{server.Name} ({server.City}) is {(server.IsOnline ? "online" : "offline")}")
 			&nbsp;
 			<a href="/servers/edit/@server.Id" class="btn btn-link">Edit</a>
 			&nbsp;
-			<EditForm
-				Model="server"
-				FormName="@($"form_DeleteServer_{server.Id}")"
-				OnValidSubmit="@(() => { DeleteServer(server.Id); })"
-			>
+			<EditForm Model="server"
+					  FormName="@($"form_DeleteServer_{server.Id}")"
+					  OnValidSubmit="@(() => { DeleteServer(server.Id); })">
 				<button type="submit" class="btn btn-primary">Delete</button>
 			</EditForm>
 		</li>
-	}
+	</Virtualize>
 </ul>
 
 <p>
@@ -56,7 +53,7 @@
 
 @code {
 	private IEnumerable<string> cities = CitiesRepository.GetCities();
-	private IEnumerable<Server> servers = ServersRepository.GetServers();
+	private List<Server> servers = ServersRepository.GetServers();
 	private string selectedCity = "";
 
 	private string _serverFilter = "";
