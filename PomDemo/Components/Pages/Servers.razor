@@ -24,11 +24,13 @@
 
 <br />
 <div class="input-group mb-3">
-	<input type="text" class="form-control" placeholder="Search Servers" @onchange="HandleServerFilterChange" />
+	<input type="text" class="form-control" placeholder="Search Servers"
+		@bind-value="serverFilter"
+		@bind-value:event="oninput"/>
 	<button class="btn btn-outline-secondary" type="button" id="button-search" @onclick="HandleSearch">Search</button>
 </div>
 <br />
-
+@serverFilter
 <ul>
 	@foreach(var server in servers)
 	{
@@ -56,8 +58,20 @@
 @code {
 	private IEnumerable<string> cities = CitiesRepository.GetCities();
 	private IEnumerable<Server> servers = ServersRepository.GetServers();
-	private string selectedCity = string.Empty;
-	private string serverFilter = string.Empty;
+	private string selectedCity = "";
+
+	private string _serverFilter = "";
+	private string serverFilter
+	{ 
+		get => _serverFilter;
+		set
+		{
+			_serverFilter = value;
+
+			// Trigger a search when the filter changes
+			this.servers = ServersRepository.SearchServers(_serverFilter);
+		}
+	}
 
 	private void DeleteServer(int serverId)
 	{
@@ -68,11 +82,6 @@
 	{
 		this.selectedCity = cityName;
 		this.servers = ServersRepository.GetServersByCity(this.selectedCity);
-	}
-
-	private void HandleServerFilterChange(ChangeEventArgs args)
-	{
-		serverFilter = args.Value?.ToString() ?? "";
 	}
 
 	private void HandleSearch()
