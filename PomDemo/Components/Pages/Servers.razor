@@ -30,23 +30,22 @@
 	<button class="btn btn-outline-secondary" type="button" id="button-search" @onclick="HandleSearch">Search</button>
 </div>
 <br />
-@serverFilter
+
 <ul>
 	@foreach(var server in servers)
 	{
-		<li>
+		<li @key="server.Id">
 			@($"{server.Name} ({server.City}) is {(server.IsOnline ? "online" : "offline")}")
 			&nbsp;
 			<a href="/servers/edit/@server.Id" class="btn btn-link">Edit</a>
 			&nbsp;
 			<EditForm
-			Model="server"
-			FormName="@($"form_DeleteServer_{server.Id}")"
-			OnValidSubmit="@(() => { DeleteServer(server.Id); })"
+				Model="server"
+				FormName="@($"form_DeleteServer_{server.Id}")"
+				OnValidSubmit="@(() => { DeleteServer(server.Id); })"
 			>
 				<button type="submit" class="btn btn-primary">Delete</button>
 			</EditForm>
-
 		</li>
 	}
 </ul>
