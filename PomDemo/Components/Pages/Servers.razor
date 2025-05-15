@@ -11,7 +11,7 @@
 		@foreach (var city in cities)
 		{
 			<div class="col">
-				<div class="card">
+				<div class='card @(city == selectedCity ? "border-primary" : null)'>
 					<img class="card-img-top" src="@($"/images/{city}.png")" alt="@city">
 					<div class="card-body">
 						<button type="button" class="btn btn-primary" @onclick="@(() => { SelectCity(city); })">@city</button>
@@ -23,8 +23,6 @@
 </div>
 
 <br />
-
-<ServerComponent @rendermode="InteractiveServer"></ServerComponent>
 
 <ul>
 	@foreach(var server in servers)
