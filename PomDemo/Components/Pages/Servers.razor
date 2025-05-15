@@ -26,7 +26,11 @@
 <ul>
 	@foreach(var server in servers)
 	{
-		<li>@($"{server.Name} ({server.City}) is {(server.IsOnline ? "online" : "offline")}")</li>
+		<li>
+			@($"{server.Name} ({server.City}) is {(server.IsOnline ? "online" : "offline")}")
+			&nbsp;
+			<a href="/servers/edit" class="btn btn-link">Edit</a>
+		</li>
 	}
 </ul>
 
