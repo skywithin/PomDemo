@@ -3,10 +3,15 @@
 <h3>Servers</h3>
 <br />
 <br />
-<ServerComponent></ServerComponent>
-<br />
-<ServerComponent></ServerComponent>
+
+<ul>
+	@foreach(var server in servers)
+	{
+		<li>@($"{server.Name} ({server.City}) is {(server.IsOnline ? "online" : "offline")}")</li>
+	}
+</ul>
 
 @code {
+	private IEnumerable<Server> servers = ServersRepository.GetServers();
 
 }
