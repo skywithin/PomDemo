@@ -10,7 +10,10 @@
 }
 else
 {
-	<EditForm Model="server" FormName="form_EditServer" OnSubmit="Submit">
+	<EditForm Model="server" FormName="form_EditServer" OnValidSubmit="Submit">
+		<DataAnnotationsValidator />
+		<ValidationSummary />
+
 		<InputNumber @bind-Value="server.Id" hidden></InputNumber>
 
 		<div class="row mb-3">
@@ -20,6 +23,9 @@ else
 			<div class="col-6">
 				<InputText @bind-Value="server.Name" class="form-control" />
 			</div>
+			<div class="col">
+				<ValidationMessage For="() => server.Name" />
+			</div>
 		</div>
 
 		<div class="row mb-3">
@@ -28,6 +34,9 @@ else
 			</div>
 			<div class="col-6">
 				<InputText @bind-Value="server.City" class="form-control" />
+			</div>
+			<div class="col">
+				<ValidationMessage For="() => server.City" />
 			</div>
 		</div>
 
@@ -39,6 +48,8 @@ else
 				<InputCheckbox @bind-Value="server.IsOnline" class="form-check-input" />
 			</div>
 		</div>
+
+		<ValidationSummary />
 		<br />
 		<button type="submit" class="btn btn-primary">Save</button>
 		&nbsp;
