@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PomDemo", "PomDemo\PomDemo.csproj", "{96519F2E-BD9B-4F89-9333-94509E49C732}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PomDemoTests", "PomDemoTests\PomDemoTests.csproj", "{81134BAB-111D-42CA-84F7-CD4EC2E8FCD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96519F2E-BD9B-4F89-9333-94509E49C732}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96519F2E-BD9B-4F89-9333-94509E49C732}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96519F2E-BD9B-4F89-9333-94509E49C732}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96519F2E-BD9B-4F89-9333-94509E49C732}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81134BAB-111D-42CA-84F7-CD4EC2E8FCD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81134BAB-111D-42CA-84F7-CD4EC2E8FCD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81134BAB-111D-42CA-84F7-CD4EC2E8FCD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81134BAB-111D-42CA-84F7-CD4EC2E8FCD3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4B55402C-17B0-42C1-9DE2-B7F9ADDDD952}
+	EndGlobalSection
+EndGlobal
