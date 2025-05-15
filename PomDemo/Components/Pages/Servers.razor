@@ -23,6 +23,11 @@
 </div>
 
 <br />
+<div class="input-group mb-3">
+	<input type="text" class="form-control" placeholder="Search Servers" @onchange="HandleServerFilterChange" />
+	<button class="btn btn-outline-secondary" type="button" id="button-search" @onclick="HandleSearch">Search</button>
+</div>
+<br />
 
 <ul>
 	@foreach(var server in servers)
@@ -33,13 +38,13 @@
 			<a href="/servers/edit/@server.Id" class="btn btn-link">Edit</a>
 			&nbsp;
 			<EditForm
-				Model="server"
-				FormName="@($"form_DeleteServer_{server.Id}")"
-				OnValidSubmit="@(() => { DeleteServer(server.Id); })"
+			Model="server"
+			FormName="@($"form_DeleteServer_{server.Id}")"
+			OnValidSubmit="@(() => { DeleteServer(server.Id); })"
 			>
 				<button type="submit" class="btn btn-primary">Delete</button>
 			</EditForm>
-			
+
 		</li>
 	}
 </ul>
@@ -52,6 +57,7 @@
 	private IEnumerable<string> cities = CitiesRepository.GetCities();
 	private IEnumerable<Server> servers = ServersRepository.GetServers();
 	private string selectedCity = string.Empty;
+	private string serverFilter = string.Empty;
 
 	private void DeleteServer(int serverId)
 	{
@@ -63,4 +69,16 @@
 		this.selectedCity = cityName;
 		this.servers = ServersRepository.GetServersByCity(this.selectedCity);
 	}
+
+	private void HandleServerFilterChange(ChangeEventArgs args)
+	{
+		serverFilter = args.Value?.ToString() ?? "";
+	}
+
+	private void HandleSearch()
+	{
+		this.servers = ServersRepository.SearchServers(this.serverFilter);
+		this.selectedCity = "";
+	}
+
 }
