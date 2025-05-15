@@ -10,7 +10,7 @@ public class Server
         IsOnline = randomNumber != 0;
     }
 
-    public int ServerId { get; set; }
+    public int Id { get; set; }
     public bool IsOnline { get; set; }
     public string? Name { get; set; }
     public string? City { get; set; }
