@@ -30,12 +30,29 @@
 			@($"{server.Name} ({server.City}) is {(server.IsOnline ? "online" : "offline")}")
 			&nbsp;
 			<a href="/servers/edit/@server.Id" class="btn btn-link">Edit</a>
+			&nbsp;
+			<EditForm
+				Model="server"
+				FormName="@($"form_DeleteServer_{server.Id}")"
+				OnValidSubmit="@(() => { DeleteServer(server.Id); })"
+			>
+				<button type="submit" class="btn btn-primary">Delete</button>
+			</EditForm>
+			
 		</li>
 	}
 </ul>
+
+<p>
+	<a href="/servers/add" class="btn btn-primary">Add Server</a>
+</p>
 
 @code {
 	private IEnumerable<string> cities = CitiesRepository.GetCities();
 	private IEnumerable<Server> servers = ServersRepository.GetServers();
 
+	private void DeleteServer(int serverId)
+	{
+		ServersRepository.DeleteServer(serverId);
+	}
 }

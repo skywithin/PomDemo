@@ -16,8 +16,8 @@ public class Server
     public bool IsOnline { get; set; }
         
     [Required]
-    public string? Name { get; set; }
+    public string Name { get; set; }
 
     [Required]
-    public string? City { get; set; }
+    public string City { get; set; }
 }

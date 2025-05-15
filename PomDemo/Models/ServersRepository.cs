@@ -22,7 +22,7 @@ public static class ServersRepository
 
     public static void AddServer(Server server)
     {
-        var maxId = servers.Max(s => s.Id);
+        var maxId = servers.Any() ? servers.Max(s => s.Id) : 0;
         server.Id = maxId + 1;
         servers.Add(server);
     }
