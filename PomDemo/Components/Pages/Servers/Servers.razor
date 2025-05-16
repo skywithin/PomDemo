@@ -6,21 +6,9 @@
 <br />
 <br />
 
-<div class="container-fluid text-center">
-	<div class="row w-50">
-		@foreach (var city in cities)
-		{
-			<div class="col">
-				<div class='card @(city == selectedCity ? "border-primary" : null)'>
-					<img class="card-img-top" src="@($"/images/{city}.png")" alt="@city">
-					<div class="card-body">
-						<button type="button" class="btn btn-primary" @onclick="@(() => { SelectCity(city); })">@city</button>
-					</div>
-				</div>
-			</div>
-		}
-	</div>
-</div>
+<CityListComponent
+	@rendermode="InteractiveServer"
+	SelectCityCallback="HandleCitySelected"></CityListComponent>
 
 <br />
 <div class="input-group mb-3">
@@ -56,16 +44,15 @@
 		}
 	}
 
-	private void SelectCity(string cityName)
+	private void HandleCitySelected(string selectedCity)
 	{
-		this.selectedCity = cityName;
-		//this.servers = ServersRepository.GetServersByCity(this.selectedCity);
+		this.selectedCity = selectedCity;
 	}
 
 	private void HandleSearch()
 	{
 		//this.servers = ServersRepository.SearchServers(this.serverFilter);
-		this.selectedCity = "";
+		//this.selectedCity = "";
 	}
 
 }
