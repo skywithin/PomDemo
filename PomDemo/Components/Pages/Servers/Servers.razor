@@ -25,13 +25,15 @@
 <br />
 <div class="input-group mb-3">
 	<input type="text" class="form-control" placeholder="Search Servers"
-		@bind-value="serverFilter"
+		@bind-value="this.serverFilter"
 		@bind-value:event="oninput"/>
 	<button class="btn btn-outline-secondary" type="button" id="button-search" @onclick="HandleSearch">Search</button>
 </div>
 <br />
 
-<ServerListComponent @rendermode="InteractiveServer"></ServerListComponent>
+<ServerListComponent 
+	@rendermode="InteractiveServer"
+	SelectedCity="@this.selectedCity"></ServerListComponent>
 
 <p>
 	<a href="/servers/add" class="btn btn-primary">Add Server</a>

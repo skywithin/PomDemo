@@ -1,23 +1,37 @@
 ﻿@inject NavigationManager NavigationManager
 
-<ul>
-	<Virtualize Items="servers" Context="server">
-		<li @key="server.Id">
-			@($"{server.Name} ({server.City}) is {(server.IsOnline ? "online" : "offline")}")
-			&nbsp;
-			<a href="/servers/edit/@server.Id" class="btn btn-link">Edit</a>
-			&nbsp;
-			<EditForm Model="server"
-					  FormName="@($"form_DeleteServer_{server.Id}")"
-					  OnValidSubmit="@(() => { DeleteServer(server.Id); })">
-				<button type="submit" class="btn btn-primary">Delete</button>
-			</EditForm>
-		</li>
-	</Virtualize>
-</ul>
+@if (servers?.Any() == true)
+{
+	<ul>
+		<Virtualize Items="servers" Context="server">
+			<li @key="server.Id">
+				@($"{server.Name} ({server.City}) is {(server.IsOnline ? "online" : "offline")}")
+				&nbsp;
+				<a href="/servers/edit/@server.Id" class="btn btn-link">Edit</a>
+				&nbsp;
+				<EditForm Model="server"
+						  FormName="@($"form_DeleteServer_{server.Id}")"
+						  OnValidSubmit="@(() => { DeleteServer(server.Id); })">
+					<button type="submit" class="btn btn-primary">Delete</button>
+				</EditForm>
+			</li>
+		</Virtualize>
+	</ul>
+}
 
 @code {
-	private List<Server> servers = ServersRepository.GetServers();
+	[Parameter]
+	public string? SelectedCity { get; set; }
+
+	private List<Server>? servers;
+
+	protected override void OnParametersSet()
+	{
+		servers = 
+			!string.IsNullOrEmpty(SelectedCity)
+				? ServersRepository.GetServersByCity(SelectedCity)
+				: ServersRepository.GetServers();
+	}
 
 	private void DeleteServer(int serverId)
 	{
