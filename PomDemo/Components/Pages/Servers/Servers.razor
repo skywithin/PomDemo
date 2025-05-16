@@ -7,12 +7,14 @@
 <br />
 
 <CityListComponent
-	@rendermode="InteractiveServer"
+	@ref="cityListComponent"
 	SelectCityCallback="HandleCitySelected" />
 
 <br />
 
-<SearchBarComponent SearchServerCallback="HandleSearch" />
+<SearchBarComponent
+	@ref="searchBarComponent"
+	SearchServerCallback="HandleSearch" />
 
 <br />
 
@@ -29,15 +31,21 @@
 	private IEnumerable<string> cities = CitiesRepository.GetCities();
 	private string selectedCity = "";
 	private string searchFilter = "";
+	private CityListComponent? cityListComponent;
+	private SearchBarComponent? searchBarComponent;
 
 	private void HandleCitySelected(string selectedCity)
 	{
 		this.selectedCity = selectedCity;
 		this.searchFilter = "";
+
+		searchBarComponent?.ClearSearchBar();
 	}
 
 	private void HandleSearch(string searchFilter)
 	{
 		this.searchFilter = searchFilter;
+
+		cityListComponent?.ClearSelection();
 	}
 }
