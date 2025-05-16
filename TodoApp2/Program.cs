@@ -1,19 +1,19 @@
-using PomDemo.Components;
+using TodoApp2.Components;
 
-namespace PomDemo;
-
+namespace TodoApp2;
 public class Program
 {
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services
-            .AddRazorComponents()
+        // Add services to the container.
+        builder.Services.AddRazorComponents()
             .AddInteractiveServerComponents();
 
         var app = builder.Build();
 
+        // Configure the HTTP request pipeline.
         if (!app.Environment.IsDevelopment())
         {
             app.UseExceptionHandler("/Error");
@@ -22,7 +22,9 @@ public class Program
         }
 
         app.UseHttpsRedirection();
+
         app.UseAntiforgery();
+
         app.MapStaticAssets();
         app.MapRazorComponents<App>()
             .AddInteractiveServerRenderMode();

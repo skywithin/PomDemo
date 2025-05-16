@@ -1,0 +1,23 @@
+﻿@page "/todolist"
+
+<h3>To Do</h3>
+<br />
+
+<ul>
+	@if (items.Any())
+	{
+		foreach (var item in items)
+		{
+			<li @key="item.Id">
+				@item.Name
+			</li>
+		}
+	}
+	else
+	{
+		<li>No items found.</li>
+	}
+</ul>
+@code {
+	private List<TodoItem> items = TodoItemsRepository.GetItems();
+}
