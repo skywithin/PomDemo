@@ -7,6 +7,15 @@
 		<span style="color:@((this.Server.IsOnline ? "green" : "red"))">
 			@(this.Server.IsOnline ? "online" : "offline")
 		</span>
+
+		@if (this.Server.IsOnline)
+		{
+			var peopleOnline = new Random().Next(0, 500);
+
+			<text>&nbsp;</text>
+			@($"({peopleOnline} people)")
+		}
+
 		&nbsp;
 
 		@if (this.Server.IsOnline)
