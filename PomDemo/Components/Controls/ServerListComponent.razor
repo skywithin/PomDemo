@@ -1,6 +1,6 @@
 ﻿@if (servers?.Any() == true)
 {
-	<ul>
+	<ul class="list-unstyled">
 		<Virtualize Items="servers" Context="server">
 			<ServerComponent Server="server" />
 		</Virtualize>

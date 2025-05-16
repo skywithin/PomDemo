@@ -3,9 +3,23 @@
 @if (Server != null)
 {
 	<li @key="Server.Id">
-		@($"{this.Server.Name} ({this.Server.City}) is {(this.Server.IsOnline ? "online" : "offline")}")
-		
+		@($"{this.Server.Name} ({this.Server.City}) is ")
+		<span style="color:@((this.Server.IsOnline ? "green" : "red"))">
+			@(this.Server.IsOnline ? "online" : "offline")
+		</span>
 		&nbsp;
+
+		@if (this.Server.IsOnline)
+		{
+			<button type="button" class="btn btn-outline-danger" onclick="@(() => { this.Server.IsOnline = false; })">Turn Off</button>
+		}
+		else
+		{
+			<button type="button" class="btn btn-outline-success" onclick="@(() => { this.Server.IsOnline = true; })">Turn On</button>
+		}
+
+		&nbsp;
+
 		
 		<a href="/servers/edit/@this.Server.Id" class="btn btn-link">Edit</a>
 		
