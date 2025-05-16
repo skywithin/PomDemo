@@ -18,7 +18,10 @@ public static class TodoItemsRepository
         Items.Add(item);
     }
 
-    public static List<TodoItem> GetItems() => Items;
+    public static List<TodoItem> GetItems() =>
+        Items.OrderBy(x => x.IsCompleted)
+            .ThenByDescending(x => x.Id)
+            .ToList();
 
     public static TodoItem? GetItemById(int id)
     {

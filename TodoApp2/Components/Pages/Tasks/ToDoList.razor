@@ -1,15 +1,59 @@
 ﻿@page "/todolist"
 
+@rendermode InteractiveServer
+
 <h3>To Do</h3>
 <br />
 
-<ul>
+<button
+type="button"
+class="btn btn-primary"
+@onclick="AddTask">
+	Add Task
+</button>
+
+<br />
+<br />
+
+<ul class="list-unstyled">
 	@if (items.Any())
 	{
 		foreach (var item in items)
 		{
 			<li @key="item.Id">
-				@item.Name
+				<div class="row mb-2">
+					<div class="col-1" style="width:30px">
+						<input type="checkbox"
+							   style="vertical-align:middle"
+							   class="form-check-input"
+							   @bind-value="item.IsCompleted"
+							   checked="@item.IsCompleted" />
+					</div>
+					<div class="col">
+						@if (item.IsCompleted)
+						{
+							<input type="text"
+								   style="vertical-align:middle"
+								   class="form-control border-0 text-decoration-line-through"
+								   @bind-value="item.Name"
+								   disabled/>
+						}
+						else
+						{
+							<input type="text"
+								   style="vertical-align:middle"
+								   class="form-control border-0"
+								   @bind-value="item.Name" />
+						}
+						
+					</div>
+					<div class="col">
+						@if (item.IsCompleted)
+						{
+							<text>Completed at: @item.CompletedAt?.ToLongDateString()</text>
+						}
+					</div>
+				</div>
 			</li>
 		}
 	}
@@ -18,6 +62,13 @@
 		<li>No items found.</li>
 	}
 </ul>
+
 @code {
 	private List<TodoItem> items = TodoItemsRepository.GetItems();
+
+	private void AddTask()
+	{
+		TodoItemsRepository.AddItem(new TodoItem { Name = "New Task" });
+		items = TodoItemsRepository.GetItems();
+	}
 }
