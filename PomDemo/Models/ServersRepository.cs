@@ -78,10 +78,10 @@ public static class ServersRepository
         }
     }
 
-    public static List<Server> SearchServers(string serverFilter)
+    public static List<Server> SearchServers(string searchFilter)
     {
         return Servers
-                .Where(s => s.Name.Contains(serverFilter, StringComparison.OrdinalIgnoreCase))
+                .Where(s => s.Name.Contains(searchFilter, StringComparison.OrdinalIgnoreCase))
                 .ToList();
     }
 }

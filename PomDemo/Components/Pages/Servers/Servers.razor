@@ -8,20 +8,18 @@
 
 <CityListComponent
 	@rendermode="InteractiveServer"
-	SelectCityCallback="HandleCitySelected"></CityListComponent>
+	SelectCityCallback="HandleCitySelected" />
 
 <br />
-<div class="input-group mb-3">
-	<input type="text" class="form-control" placeholder="Search Servers"
-		@bind-value="this.serverFilter"
-		@bind-value:event="oninput"/>
-	<button class="btn btn-outline-secondary" type="button" id="button-search" @onclick="HandleSearch">Search</button>
-</div>
+
+<SearchBarComponent SearchServerCallback="HandleSearch" />
+
 <br />
 
 <ServerListComponent 
 	@rendermode="InteractiveServer"
-	SelectedCity="@this.selectedCity"></ServerListComponent>
+	SelectedCity="@this.selectedCity"
+	SearchFilter="@this.searchFilter"/>
 
 <p>
 	<a href="/servers/add" class="btn btn-primary">Add Server</a>
@@ -30,29 +28,16 @@
 @code {
 	private IEnumerable<string> cities = CitiesRepository.GetCities();
 	private string selectedCity = "";
-
-	private string _serverFilter = "";
-	private string serverFilter
-	{ 
-		get => _serverFilter;
-		set
-		{
-			_serverFilter = value;
-
-			// Trigger a search when the filter changes
-			//this.servers = ServersRepository.SearchServers(_serverFilter);
-		}
-	}
+	private string searchFilter = "";
 
 	private void HandleCitySelected(string selectedCity)
 	{
 		this.selectedCity = selectedCity;
+		this.searchFilter = "";
 	}
 
-	private void HandleSearch()
+	private void HandleSearch(string searchFilter)
 	{
-		//this.servers = ServersRepository.SearchServers(this.serverFilter);
-		//this.selectedCity = "";
+		this.searchFilter = searchFilter;
 	}
-
 }
