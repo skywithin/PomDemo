@@ -2,7 +2,7 @@
 
 public static class TodoItemsRepository
 {
-    private static List<TodoItem> todoItems =
+    private static List<TodoItem> Items =
         new()
         {
             TodoItem.Create(1, "Task 1"),
@@ -11,18 +11,18 @@ public static class TodoItemsRepository
             TodoItem.Create(4, "Task 4"),
         };
 
-    public static void AddItem(TodoItem todoItem)
+    public static void AddItem(TodoItem item)
     {
-        var maxId = todoItems.Any() ? todoItems.Max(s => s.Id) : 0;
-        todoItem.Id = maxId + 1;
-        todoItems.Add(todoItem);
+        var maxId = Items.Any() ? Items.Max(s => s.Id) : 0;
+        item.Id = maxId + 1;
+        Items.Add(item);
     }
 
-    public static List<TodoItem> GetItems() => todoItems;
+    public static List<TodoItem> GetItems() => Items;
 
     public static TodoItem? GetItemById(int id)
     {
-        var item = todoItems.FirstOrDefault(s => s.Id == id);
+        var item = Items.FirstOrDefault(s => s.Id == id);
 
         if (item != null)
         {
@@ -38,34 +38,34 @@ public static class TodoItemsRepository
         return null;
     }
 
-    public static void UpdateItem(int id, TodoItem todoItem)
+    public static void UpdateItem(int id, TodoItem item)
     {
-        if (id != todoItem.Id)
+        if (id != item.Id)
             return;
 
-        var serverToUpdate = todoItems.FirstOrDefault(s => s.Id == id);
+        var itemToUpdate = Items.FirstOrDefault(s => s.Id == id);
 
-        if (serverToUpdate != null)
+        if (itemToUpdate != null)
         {
-            serverToUpdate.IsCompleted = todoItem.IsCompleted;
-            serverToUpdate.Name = todoItem.Name;
-            serverToUpdate.CompletedAt = todoItem.CompletedAt;
+            itemToUpdate.IsCompleted = item.IsCompleted;
+            itemToUpdate.Name = item.Name;
+            itemToUpdate.CompletedAt = item.CompletedAt;
         }
     }
 
-    public static void DeleteItem(int todoItemId)
+    public static void DeleteItem(int itemId)
     {
-        var todoItem = todoItems.FirstOrDefault(s => s.Id == todoItemId);
+        var item = Items.FirstOrDefault(s => s.Id == itemId);
 
-        if (todoItem != null)
+        if (item != null)
         {
-            todoItems.Remove(todoItem);
+            Items.Remove(item);
         }
     }
 
     public static List<TodoItem> SearchTodoItems(string filter)
     {
-        return todoItems
+        return Items
                 .Where(x => x.Name.Contains(filter, StringComparison.OrdinalIgnoreCase))
                 .ToList();
     }

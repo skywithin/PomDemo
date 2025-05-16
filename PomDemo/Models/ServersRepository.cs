@@ -2,7 +2,7 @@
 
 public static class ServersRepository
 {
-    private static List<Server> servers =
+    private static List<Server> Servers =
         new()
         {
             new Server { Id = 1, Name = "Server1", City = "Toronto" },
@@ -22,23 +22,23 @@ public static class ServersRepository
 
     public static void AddServer(Server server)
     {
-        var maxId = servers.Any() ? servers.Max(s => s.Id) : 0;
+        var maxId = Servers.Any() ? Servers.Max(s => s.Id) : 0;
         server.Id = maxId + 1;
-        servers.Add(server);
+        Servers.Add(server);
     }
 
-    public static List<Server> GetServers() => servers;
+    public static List<Server> GetServers() => Servers;
 
     public static List<Server> GetServersByCity(string cityName)
     {
-        return servers
+        return Servers
                 .Where(s => s.City.Equals(cityName, StringComparison.OrdinalIgnoreCase))
                 .ToList();
     }
 
     public static Server? GetServerById(int id)
     {
-        var server = servers.FirstOrDefault(s => s.Id == id);
+        var server = Servers.FirstOrDefault(s => s.Id == id);
 
         if (server != null)
         {
@@ -58,7 +58,7 @@ public static class ServersRepository
     {
         if (serverId != server.Id) return;
 
-        var serverToUpdate = servers.FirstOrDefault(s => s.Id == serverId);
+        var serverToUpdate = Servers.FirstOrDefault(s => s.Id == serverId);
 
         if (serverToUpdate != null)
         {
@@ -70,17 +70,17 @@ public static class ServersRepository
 
     public static void DeleteServer(int serverId)
     {
-        var server = servers.FirstOrDefault(s => s.Id == serverId);
+        var server = Servers.FirstOrDefault(s => s.Id == serverId);
 
         if (server != null)
         {
-            servers.Remove(server);
+            Servers.Remove(server);
         }
     }
 
     public static List<Server> SearchServers(string serverFilter)
     {
-        return servers
+        return Servers
                 .Where(s => s.Name.Contains(serverFilter, StringComparison.OrdinalIgnoreCase))
                 .ToList();
     }
