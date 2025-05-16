@@ -31,21 +31,7 @@
 </div>
 <br />
 
-<ul>
-	<Virtualize Items="servers" Context="server">
-		<li @key="server.Id">
-			@($"{server.Name} ({server.City}) is {(server.IsOnline ? "online" : "offline")}")
-			&nbsp;
-			<a href="/servers/edit/@server.Id" class="btn btn-link">Edit</a>
-			&nbsp;
-			<EditForm Model="server"
-					  FormName="@($"form_DeleteServer_{server.Id}")"
-					  OnValidSubmit="@(() => { DeleteServer(server.Id); })">
-				<button type="submit" class="btn btn-primary">Delete</button>
-			</EditForm>
-		</li>
-	</Virtualize>
-</ul>
+<ServerListComponent @rendermode="InteractiveServer"></ServerListComponent>
 
 <p>
 	<a href="/servers/add" class="btn btn-primary">Add Server</a>
@@ -53,7 +39,6 @@
 
 @code {
 	private IEnumerable<string> cities = CitiesRepository.GetCities();
-	private List<Server> servers = ServersRepository.GetServers();
 	private string selectedCity = "";
 
 	private string _serverFilter = "";
@@ -65,24 +50,19 @@
 			_serverFilter = value;
 
 			// Trigger a search when the filter changes
-			this.servers = ServersRepository.SearchServers(_serverFilter);
+			//this.servers = ServersRepository.SearchServers(_serverFilter);
 		}
-	}
-
-	private void DeleteServer(int serverId)
-	{
-		ServersRepository.DeleteServer(serverId);
 	}
 
 	private void SelectCity(string cityName)
 	{
 		this.selectedCity = cityName;
-		this.servers = ServersRepository.GetServersByCity(this.selectedCity);
+		//this.servers = ServersRepository.GetServersByCity(this.selectedCity);
 	}
 
 	private void HandleSearch()
 	{
-		this.servers = ServersRepository.SearchServers(this.serverFilter);
+		//this.servers = ServersRepository.SearchServers(this.serverFilter);
 		this.selectedCity = "";
 	}
 
