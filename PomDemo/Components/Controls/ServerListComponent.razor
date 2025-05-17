@@ -1,11 +1,10 @@
-﻿@if (servers?.Any() == true)
-{
-	<ul class="list-unstyled">
-		<Virtualize Items="servers" Context="server">
+﻿<ul class="list-unstyled">
+	<RepeaterComponent Items="servers">
+		<Row Context="server">
 			<ServerComponent Server="server" />
-		</Virtualize>
-	</ul>
-}
+		</Row>
+	</RepeaterComponent>
+</ul>
 
 @code {
 	[Parameter]
