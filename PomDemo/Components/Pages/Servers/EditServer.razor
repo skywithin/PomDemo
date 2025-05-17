@@ -20,14 +20,14 @@ else
 
 		<FieldComponent Label="Name">
 			<Control>
-				<InputText @bind-Value="this.server.City" class="form-control" />
+				<InputText @bind-Value="this.server.Name" class="form-control" />
 			</Control>
 			<ValidationControl>
 				<ValidationMessage For="() => this.server.Name" />
 			</ValidationControl>
 		</FieldComponent>
 
-		<FieldComponent Label="Name">
+		<FieldComponent Label="City">
 			<Control>
 				<InputText @bind-Value="server.City" class="form-control" />
 			</Control>
