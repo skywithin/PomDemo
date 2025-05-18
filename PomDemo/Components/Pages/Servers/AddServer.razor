@@ -64,6 +64,6 @@
 	{
 		ServersRepository.AddServer(server);
 
-		NavigationManager.NavigateTo("/servers");
+		NavigationManager.NavigateTo($"/servers/city/{server?.City}");
 	}
 }

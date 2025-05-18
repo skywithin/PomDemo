@@ -59,7 +59,7 @@
 		if (isConfirmed)
 		{
 			ServersRepository.DeleteServer(serverId);
-			NavigationManager.NavigateTo("/servers", forceLoad: true);
+			NavigationManager.NavigateTo($"/servers/city/{Server?.City}", forceLoad: true);
 		}
 	}
 

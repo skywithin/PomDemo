@@ -77,7 +77,7 @@ else
 			ServersRepository.UpdateServer(server.Id, server);
 		}
 
-		NavigationManager.NavigateTo("/servers");
+		NavigationManager.NavigateTo($"/servers/city/{server?.City}");
 	}
 
 	private async Task OnBeforeInternalNavigation(LocationChangingContext context)
