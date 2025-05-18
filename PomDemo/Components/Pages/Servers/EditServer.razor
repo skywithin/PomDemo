@@ -1,6 +1,11 @@
 ﻿@page "/servers/edit/{id:int}"
 
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<NavigationLock
+	OnBeforeInternalNavigation="OnBeforeInternalNavigation"
+	ConfirmExternalNavigation="true"/> @* Requires Router to be in InteractiveServer render mode *@
 
 <h3>Edit Server</h3>
 <br />
@@ -65,11 +70,6 @@ else
 		server ??= ServersRepository.GetServerById(this.Id);
 	}
 
-	// protected override Task OnAfterRenderAsync(bool firstRender)
-	// {
-	// 	return base.OnAfterRenderAsync(firstRender);
-	// }
-
 	private async Task Submit()
 	{
 		if (server != null)
@@ -78,5 +78,15 @@ else
 		}
 
 		NavigationManager.NavigateTo("/servers");
+	}
+
+	private async Task OnBeforeInternalNavigation(LocationChangingContext context)
+	{
+		var isConfirmed = await JSRuntime.InvokeAsync<bool>("confirm", "You are about to navigate away from this page. Are you sure?");
+	
+		if (!isConfirmed)
+		{
+			context.PreventNavigation();
+		}
 	}
 }
