@@ -27,6 +27,8 @@
 
 	private List<Server>? servers;
 
+	private Timer? timer;
+
 	protected override void OnParametersSet()
 	{
 		if (!string.IsNullOrEmpty(SearchFilter))
@@ -39,6 +41,19 @@
 				!string.IsNullOrEmpty(SelectedCity)
 					? ServersRepository.GetServersByCity(SelectedCity)
 					: ServersRepository.GetServers();
+		}
+	}
+
+	protected override void OnAfterRender(bool firstRender)
+	{
+		if (firstRender)
+		{
+			timer =
+				new Timer(
+					callback: _ => { base.InvokeAsync(StateHasChanged); }, // Must use InvokeAsync!
+					state: null,
+					dueTime: 2000,
+					period: 2000);
 		}
 	}
 }
