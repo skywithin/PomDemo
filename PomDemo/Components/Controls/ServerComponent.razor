@@ -1,4 +1,5 @@
 ﻿@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 
 @if (Server != null)
 {
@@ -51,10 +52,15 @@
 	[CascadingParameter(Name = "SelectedCity")]
 	public string? SelectedCity { get; set; }
 
-	private void DeleteServer(int serverId)
+	private async Task DeleteServer(int serverId)
 	{
-		ServersRepository.DeleteServer(serverId);
-		NavigationManager.NavigateTo("/servers", forceLoad: true);
+		var isConfirmed = await JSRuntime.InvokeAsync<bool>("confirm", "You are about to delete a server. Are you sure?");
+
+		if (isConfirmed)
+		{
+			ServersRepository.DeleteServer(serverId);
+			NavigationManager.NavigateTo("/servers", forceLoad: true);
+		}
 	}
 
     private string GetBackgroundColor()
