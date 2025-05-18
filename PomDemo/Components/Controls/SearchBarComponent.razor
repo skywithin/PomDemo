@@ -1,4 +1,4 @@
-﻿<div class="input-group mb-3 input-width">
+﻿<div class="input-group mb-3 input-width" @attributes=this.InputAttributes>
 	<input
 		type="text"
 		class="form-control"
@@ -19,6 +19,9 @@
 @code {
 	[Parameter]
 	public EventCallback<string> SearchServerCallback { get; set; }
+
+	[Parameter(CaptureUnmatchedValues = true)]
+	public Dictionary<string, object> InputAttributes { get; set; } = new();
 
 	private string searchFilter = "";
 
