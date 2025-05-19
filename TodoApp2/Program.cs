@@ -1,11 +1,21 @@
 using TodoApp2.Components;
+using Serilog;
 
 namespace TodoApp2;
+
 public class Program
 {
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.Host
+            .UseSerilog((context, provider, loggerConfiguration) =>
+            {
+                loggerConfiguration
+                    .ReadFrom.Configuration(context.Configuration)
+                    .Enrich.FromLogContext();
+            });
 
         // Add services to the container.
         builder.Services.AddRazorComponents()
