@@ -1,4 +1,6 @@
-﻿@inject TorontoOnlineServersStore TorontoOnlineServersStore
+﻿@implements IDisposable
+
+@inject TorontoOnlineServersStore TorontoOnlineServersStore
 
 @if (!string.IsNullOrEmpty(City))
 {
@@ -50,5 +52,10 @@
 	{
 		numberOfServersOnlineToronto = TorontoOnlineServersStore.GetNumServersOnline();
 		StateHasChanged();
+	}
+
+	public void Dispose()
+	{
+		TorontoOnlineServersStore.Unsubscribe(OnServersStatusChanged);
 	}
 }
