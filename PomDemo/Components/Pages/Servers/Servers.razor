@@ -4,6 +4,7 @@
 @rendermode InteractiveServer
 
 @inject NavigationManager NavigationManager
+@inject TorontoOnlineServersStore TorontoOnlineServersStore
 
 <h3>Servers</h3>
 <br />
@@ -69,6 +70,14 @@
 
 				StateHasChanged();
 			}
+		}
+
+		var serversToronto = ServersRepository.GetServersByCity("Toronto");
+
+		if (serversToronto != null)
+		{
+			TorontoOnlineServersStore.SetNumServersOnline(serversToronto.Count(s => s.IsOnline));
+
 		}
 	}
 }

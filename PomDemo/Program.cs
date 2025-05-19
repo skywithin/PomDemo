@@ -1,4 +1,5 @@
 using PomDemo.Components;
+using PomDemo.Services.Observers;
 
 namespace PomDemo;
 
@@ -11,6 +12,8 @@ public class Program
         builder.Services
             .AddRazorComponents()
             .AddInteractiveServerComponents();
+
+        builder.Services.AddScoped<TorontoOnlineServersStore>();
 
         var app = builder.Build();
 

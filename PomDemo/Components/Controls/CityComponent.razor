@@ -1,10 +1,18 @@
-﻿@if (!string.IsNullOrEmpty(City))
+﻿@inject TorontoOnlineServersStore TorontoOnlineServersStore
+
+@if (!string.IsNullOrEmpty(City))
 {
 	<div class="col">
 		<div class='card @(this.City == SelectedCity ? "border-primary" : null)'>
 			<img class="card-img-top" src="@($"/images/{this.City}.png")" alt="@this.City">
 			<div class="card-body">
 				<button type="button" class="btn btn-primary" @onclick="@(() => { SelectCity(this.City); })">@this.City</button>
+			</div>
+			<div>
+				@if (this.City.Equals("Toronto", StringComparison.OrdinalIgnoreCase))
+				{
+					<text>@numberOfServersOnlineToronto</text>
+				}
 			</div>
 		</div>
 	</div>
@@ -21,8 +29,26 @@
 	[Parameter]
 	public EventCallback<string> SelectCityCallback { get; set; }
 
+	private int numberOfServersOnlineToronto = 0;
+
 	private void SelectCity(string cityName)
 	{
 		SelectCityCallback.InvokeAsync(cityName);
+	}
+
+	protected override void OnAfterRender(bool firstRender)
+	{
+		if (firstRender)
+		{
+			numberOfServersOnlineToronto = TorontoOnlineServersStore.GetNumServersOnline();
+			TorontoOnlineServersStore.Subscribe(OnServersStatusChanged);
+			StateHasChanged();
+		}
+	}
+
+	private void OnServersStatusChanged()
+	{
+		numberOfServersOnlineToronto = TorontoOnlineServersStore.GetNumServersOnline();
+		StateHasChanged();
 	}
 }
