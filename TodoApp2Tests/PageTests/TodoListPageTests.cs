@@ -1,7 +1,7 @@
 ﻿using Microsoft.Playwright.Xunit;
-using PomDemoTests.Models;
+using TodoApp2Tests.Models;
 
-namespace PomDemoTests;
+namespace TodoApp2Tests.PageTests;
 
 public class TodoListPageTests : PageTest
 {

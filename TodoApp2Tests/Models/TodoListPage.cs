@@ -1,6 +1,6 @@
 ﻿using Microsoft.Playwright;
 
-namespace PomDemoTests.Models;
+namespace TodoApp2Tests.Models;
 
 // Page object model for the Todo List page
 public class TodoListPage

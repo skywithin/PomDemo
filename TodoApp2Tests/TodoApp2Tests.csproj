@@ -22,9 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PomDemo\PomDemo.csproj" />
+    <ProjectReference Include="..\TodoApp2\TodoApp2.csproj" />
   </ItemGroup>
-
+	
   <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
