@@ -1,3 +1,4 @@
+using WebAssemblyDemo.Client;
 using WebAssemblyDemo.Components;
 
 namespace WebAssemblyDemo;
@@ -13,6 +14,8 @@ public class Program
             .AddRazorComponents()
             .AddInteractiveServerComponents()
             .AddInteractiveWebAssemblyComponents();
+
+        builder.Services.AddSingleton<ContainerStorage>();
 
         var app = builder.Build();
 
