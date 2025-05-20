@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using PomDemo.Components;
+using PomDemo.Data;
 using PomDemo.Services.Observers;
 
 namespace PomDemo;
@@ -8,6 +10,11 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.AddDbContextFactory<ServerManagementDbContext>(opt =>
+        {
+            opt.UseSqlServer(builder.Configuration.GetConnectionString("ServerManagment"));
+        });
 
         builder.Services
             .AddRazorComponents()
