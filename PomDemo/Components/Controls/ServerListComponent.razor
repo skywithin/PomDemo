@@ -1,4 +1,6 @@
-﻿@if (this.servers is null)
+﻿@inject IServersEfCoreRepository ServersRepository;
+
+@if (this.servers is null)
 {
 	<p>
 		Loading...

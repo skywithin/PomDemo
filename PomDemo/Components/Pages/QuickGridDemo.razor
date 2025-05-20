@@ -3,6 +3,8 @@
 
 @rendermode InteractiveServer
 
+@inject IServersEfCoreRepository ServersRepository;
+
 <h3>QuickGrid Demo</h3>
 <br />
 @if (this.servers?.Any() == true)
@@ -43,9 +45,10 @@
 		</TemplateColumn>
 		<TemplateColumn>
 			<ChildContent Context="server">
-				<EditForm Model="server"
-						  FormName="@($"form_DeleteServer_{server.Id}")"
-						  OnValidSubmit="@(() => { DeleteServer(server.Id); })">
+				<EditForm
+					Model="server"
+					FormName="@($"form_DeleteServer_{server.Id}")"
+					OnValidSubmit="@(() => { DeleteServer(server.Id); })">
 					<button type="submit" class="btn btn-danger">Delete</button>
 				</EditForm>
 			</ChildContent>
@@ -55,7 +58,7 @@
 }
 
 @code {
-	private List<Server>? servers = ServersRepository.GetServers();
+	private List<Server>? servers;
 
 	private PaginationState paginationState =
 		new PaginationState
@@ -66,5 +69,13 @@
 	private void DeleteServer(int serverId)
 	{
 		ServersRepository.DeleteServer(serverId);
+	}
+
+	protected override void OnAfterRender(bool firstRender)
+	{
+		if (firstRender)
+		{
+			servers = ServersRepository.GetServers();
+		}
 	}
 }

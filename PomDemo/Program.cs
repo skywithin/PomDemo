@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PomDemo.Components;
 using PomDemo.Data;
+using PomDemo.Models;
 using PomDemo.Services.Observers;
 
 namespace PomDemo;
@@ -21,6 +22,8 @@ public class Program
             .AddInteractiveServerComponents();
 
         builder.Services.AddScoped<TorontoOnlineServersStore>();
+
+        builder.Services.AddTransient<IServersEfCoreRepository, ServersEfCoreRepository>();
 
         var app = builder.Build();
 

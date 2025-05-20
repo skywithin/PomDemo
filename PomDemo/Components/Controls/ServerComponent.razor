@@ -1,5 +1,6 @@
 ﻿@inject NavigationManager NavigationManager
 @inject TorontoOnlineServersStore TorontoOnlineServersStore
+@inject IServersEfCoreRepository ServersRepository;
 @inject IJSRuntime JSRuntime
 
 @if (Server != null)
@@ -102,6 +103,8 @@
 			}
 
 			this.Server.IsOnline = isOnline;
+
+			ServersRepository.UpdateServer(this.Server.Id, this.Server);
 		}
 	}
 }

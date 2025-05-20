@@ -1,6 +1,6 @@
 ﻿namespace PomDemo.Models;
 
-public static class ServersRepository
+public static class Old_ServersRepository
 {
     private static List<Server> Servers =
         new()
