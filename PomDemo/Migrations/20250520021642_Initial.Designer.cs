@@ -10,7 +10,7 @@ using PomDemo.Data;
 
 namespace PomDemo.Migrations
 {
-    [DbContext(typeof(ServerManagementDbContext))]
+    [DbContext(typeof(ServersDbContext))]
     [Migration("20250520021642_Initial")]
     partial class Initial
     {

@@ -9,7 +9,7 @@ using PomDemo.Data;
 
 namespace PomDemo.Migrations
 {
-    [DbContext(typeof(ServerManagementDbContext))]
+    [DbContext(typeof(ServersDbContext))]
     partial class ServerManagementDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

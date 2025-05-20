@@ -3,9 +3,9 @@ using PomDemo.Models;
 
 namespace PomDemo.Data;
 
-public class ServerManagementDbContext : DbContext
+public class ServersDbContext : DbContext
 {
-    public ServerManagementDbContext(DbContextOptions<ServerManagementDbContext> options)
+    public ServersDbContext(DbContextOptions<ServersDbContext> options)
         : base(options)
     {
     }

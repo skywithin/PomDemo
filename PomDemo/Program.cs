@@ -11,7 +11,7 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddDbContextFactory<ServerManagementDbContext>(opt =>
+        builder.Services.AddDbContextFactory<ServersDbContext>(opt =>
         {
             opt.UseSqlServer(builder.Configuration.GetConnectionString("ServerManagment"));
         });
