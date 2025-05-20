@@ -396,3 +396,10 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Dev app settings
+appsettings.*.json
+testsettings.*.json
+
+# Verify output file
+*.received.txt
