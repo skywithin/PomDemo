@@ -2,24 +2,58 @@
 https://www.youtube.com/watch?v=ZZXNPboS0v8
 https://try.playwright.tech/?l=csharp
 
-# Getting Started Tips
-- Start in PowerShell. 
-- Navigate to `bin\Debug\net{version}`
-- You will need to run `playwright.ps1 install` in order to install the necessary browsers for testing.
-- Once installed, keep the PowerShell terminal to trigger `codegen` for assistance in writing tests.
+# Best Practices
+- Test user-visible behavior, not implementation details.
+- Test only what you control.
+- Use locators
+    - Find elements on the page
+    - Auto waiting and retry functionality are built-in
+    - Playwright ensures that the element is `visible` and `enabled` before acting
+    - Use chaining and filtering
+    - Use user-facing attributes rather than XPath or CSS selectors
+- Generate locators
+    - Make use of codegen tools and plugins to help generate the right locators
+- Use web first assertions
+    - Think how your user sees elements, rather than how CSS selectors and IDs are used
+    - Test what the user sees and how they see it and what they expect
+- Test across multiple browsers
+    - Config files can support multiple "devices" - Chromium, Firefox, Webkit
+    - You can also test mobile and responsive layouts
+- Keep Playwright updated
+- Automate Playwright testing
+    - Add tests as part of your CI/CD pipeline
+- Soft Assertions
+    - When available, use `soft assertions`
+    - Do not immediately terminate test execution
+    - Display failed assertions once test has ended
 
+
+# Getting Started Tips
+- Start in PowerShell or go to `View > Terminal` to open Developer PowerShel in VS.
+- Navigate to `bin\Debug\net{version}`
+- Run `.\playwright.ps1 install` to install the necessary browsers for testing (required only once).
+- Once installed, keep the PowerShell terminal to trigger `codegen` for assistance in writing tests.
+```
+cd {project location}\bin\Debug\net{version} ↵
+.\playwright.ps1 install
+```
 
 # Codegen
-- Start the server first. The app must be running for codegen to work.
-- `playwright` refers to `bin\Debug\net{version}\playwright.ps1`
-
-- Run:
-```
-playwright codegen {url}
-```
-- Manually walk it through actions
 - Used to generate the code for actions
 - DOES NOT generate the code for assertions
+- Start the server first (in a different PowerShell/terminal). The app must be running for codegen to work 
+```
+cd {project location} ↵
+dotnet run
+```
+
+- Run codegen:
+```
+cd {project location}\bin\Debug\net{version} ↵
+.\playwright.ps1 codegen {url}
+```
+
+- Manually walk it through actions
 
 
 # Run tests in headed mode
@@ -33,17 +67,14 @@ dotnet test -- Playwright.LaunchOptions.Headless=false
 ```
 
 
-Run tests on different browsers: Browser env
-
+# Run tests on different browsers: 
+Specify which browser you would like to run your tests on via the BROWSER environment variable.
 ```
 $env:BROWSER="webkit"
 dotnet test
 ```
 
-
-Run tests on different browsers: launch configuration
-Specify which browser you would like to run your tests on via the BROWSER environment variable.
-
+Use launch configuration
 ```
 dotnet test -- Playwright.BrowserName=webkit
 ```
@@ -111,28 +142,24 @@ dotnet test -- Playwright.BrowserName=chromium Playwright.LaunchOptions.Headless
 ```
 
 
-
-Run specific tests
+# Run specific tests
 To run a single test file, use the filter flag followed by the class name of the test you want to run.
-
 ```
 dotnet test --filter "ExampleTest"
 ```
 
 To run a set of test files, use the filter flag followed by the class names of the tests you want to run.
-
 ```
 dotnet test --filter "ExampleTest1|ExampleTest2"
 ```
 
 To run a test with a specific title use the filter flag followed by Name~ and the title of the test.
-
 ```
 dotnet test --filter "Name~GetStartedLink"
 ```
 
 
-Run tests with multiple workers:
+# Run tests with multiple workers
 ```
 dotnet test -- xUnit.MaxParallelThreads=5
 ```
