@@ -38,6 +38,12 @@ cd {project location}\bin\Debug\net{version} ↵
 .\playwright.ps1 install
 ```
 
+- If you encounter an error like "playwright.ps1 cannot be loaded because running scripts is disabled on this system", you can change the execution policy to allow scripts to run:
+```
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+
 # Codegen
 - Used to generate the code for actions
 - DOES NOT generate the code for assertions
@@ -168,7 +174,7 @@ dotnet test -- xUnit.MaxParallelThreads=5
 
 
 
-
+TODO:
 =========================================================================================
 https://playwright.dev/dotnet/docs/next/test-runners
 Base classes for Playwright
@@ -186,7 +192,7 @@ PlaywrightTest
 
 
 
-
+TODO:
 ===========================================================================================
 https://playwright.dev/dotnet/docs/next/codegen-intro
 Running Codegen

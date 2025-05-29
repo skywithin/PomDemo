@@ -1,13 +1,11 @@
 ﻿namespace WASM.Tests;
 
-public class CounterComponentTests
+public class CounterComponentTests : TestContext
 {
     [Fact]
     public void CounterComponent_ShouldRenderCorrectly()
     {
-        var ctx = new TestContext();
-
-        var cut = ctx.RenderComponent<CounterComponent>();
+        var cut = RenderComponent<CounterComponent>();
 
         cut.MarkupMatches("<p role=\"status\">Current count: 0</p><button class=\"btn btn-primary\">Click me</button>");
     }
@@ -15,25 +13,25 @@ public class CounterComponentTests
     [Fact]
     public void CounterComponent_ShouldIncrementCount_WhenButtonClicked()
     {
-        var ctx = new TestContext();
-
-        var cut = ctx.RenderComponent<CounterComponent>();
+        var cut = RenderComponent<CounterComponent>();
 
         cut.MarkupMatches("<p role=\"status\">Current count: 0</p><button class=\"btn btn-primary\">Click me</button>");
 
         var buttonElement = cut.Find("button");
+        var status = cut.Find("p[role='status']");
+
+        Assert.Equal("Current count: 0", status.InnerHtml);
 
         buttonElement.Click();
 
+        Assert.Equal("Current count: 1", status.InnerHtml);
         cut.MarkupMatches("<p role=\"status\">Current count: 1</p><button class=\"btn btn-primary\">Click me</button>");
     }
 
     //[Fact]
     //public void CounterComponent_WhenButtonClickedAndReset_ShouldRenderCorrectly()
     //{
-    //    var ctx = new TestContext();
-
-    //    var cut = ctx.RenderComponent<CounterComponent>();
+    //    var cut = RenderComponent<CounterComponent>();
 
     //    cut.MarkupMatches("<p role=\"status\">Current count: 0</p><button class=\"btn btn-primary\">Click me</button>");
 

@@ -1,0 +1,22 @@
+﻿@inherits TestContext
+
+@code
+{
+    [Fact]
+    public void CounterComponentRendersCorrectly()
+    {
+        // Arrange
+		var cut = RenderComponent<CounterComponent>();
+
+        var buttonElement = cut.Find("button");
+		var status = cut.Find("p[role='status']");
+
+        // Act
+        Assert.Equal("Current count: 0", status.InnerHtml);
+
+        buttonElement.Click();
+
+        // Assert
+		Assert.Equal("Current count: 1", status.InnerHtml);
+    }
+}
